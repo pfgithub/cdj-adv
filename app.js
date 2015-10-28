@@ -137,6 +137,8 @@ app.get('/signup', function(req,res){
 });
 
 app.post('/signup', function(req,res){
+  if(req.body.id != secretconfig.id){res.redirect("/signup#idIncorrect");return;}
+  if(req.body.password != req.body.passConf){res.redirect("/signup#confirmPassword");return;}
   var usernameTest = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/;
   if(req.body.username.length > 12 || req.body.username.length < 3){res.redirect("/signup#usernameRules");return;}
   if(!usernameTest.test(req.body.username)){res.redirect("/signup#usernameRules");return;}

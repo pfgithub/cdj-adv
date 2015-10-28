@@ -4,17 +4,17 @@ block content
   form(action='/signup', method='post')
     div
       label Username:
-      input(type='text', name='username')
+      input#username(type='text', name='username')
       br
     div
       label ID \(Ask for this if you don't know it\):
       input(type='text', name='id')
     div
       label Password:
-      input(type='password', name='password')
+      input#pass(type='password', name='password')
     div
       label Password Confirmation:
-      input(type='password', name='passConf')
+      input#passConf(type='password', name='passConf')
     div
       input(type='submit', value='Submit')
-  body
+  script(src="signupScript.js")
