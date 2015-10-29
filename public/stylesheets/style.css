@@ -3,8 +3,39 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.navilink{
+  color:#000;
+  transition:0.2s all;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+
+  border-top:1px solid rgba(0,0,0,0.2);
+  border-bottom:1px solid rgba(0,0,0,0.2);
+  border-left:1px solid rgba(0,0,0,0);
+  border-right:1px solid rgba(0,0,0,0);
+
+}
 a {
   color: #00B7FF;
+}
+.navilink a:link, .navilink a:visited {
+    color:black;
+    text-decoration: none;
+}
+.navilink:hover{
+  background-color:#7EABBA;
+  background-color:rgba(0,192,255,0.2);
+
+  border:1px solid rgba(0,0,0,0);
+
+  -webkit-transform: perspective(500px) rotateX(-40deg);
+  -moz-transform: perspective(500px) rotateX(-40deg);
+  -o-transform: perspective(500px) rotateX(-40deg);
+  -ms-transform: perspective(500px) rotateX(-40deg);
+  transform: perspective(500px) rotateX(-40deg);
+
 }
 
 .error{
@@ -12,4 +43,34 @@ a {
 }
 .good{
   border-color:green;
+}
+#navbar{
+  display:block;
+  position:fixed;
+  width:100%;
+  left:0;
+  top:0;
+  margin:0;
+  padding:0;
+  list-style: none;
+  background-color:#00BFFF;
+  background-color:rgba(0,192,255,0.2);
+  vertical-align: middle;
+}
+.navi{
+  display:inline;
+  position:relative;
+  text-align: center;
+  height: 25px;
+  line-height: 25px;
+  white-space: nowrap;
+  margin:0;
+}
+.left{
+  float:left;
+  margin-left:20px;
+}
+.right{
+  float:right;
+  margin-right:20px;
 }

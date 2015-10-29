@@ -136,6 +136,14 @@ app.get('/signup', function(req,res){
   res.render('signup.jade');
 });
 
+app.get('/dashboard', function(req,res){
+  if(req.session.username){
+    
+  }else{
+
+  }
+});
+
 app.post('/signup', function(req,res){
   if(req.body.id != secretconfig.id){res.redirect("/signup#idIncorrect");return;}
   if(req.body.password != req.body.passConf){res.redirect("/signup#confirmPassword");return;}
