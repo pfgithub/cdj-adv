@@ -1,20 +1,13 @@
 extends layout
 
+block head
+  link(rel='stylesheet', href='/stylesheets/loginsignup.css')
+
 block content
   form(action='/signup', method='post')
-    div
-      label Username:
-      input#username(type='text', name='username')
-      br
-    div
-      label ID \(Ask for this if you don't know it\):
-      input(type='text', name='id')
-    div
-      label Password:
-      input#pass(type='password', name='password')
-    div
-      label Password Confirmation:
-      input#passConf(type='password', name='passConf')
-    div
-      input(type='submit', value='Submit')
+    input#username(type='text', name='username', placeholder='Username')
+    input(type='text', name='id', placeholder='ID (ask for this)')
+    input#pass(type='password', name='password', placeholder='Password')
+    input#passConf(type='password', name='passConf', placeholder='Confirm Password')
+    input(type='submit', value='Sign up')
   script(src="signupScript.js")

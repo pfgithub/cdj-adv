@@ -1,6 +1,32 @@
 extends layout
 
+block head
+  link(rel='stylesheet', href='/stylesheets/posts.css')
+
 block navbar
+  li.navi.navilink.left
+    a(href="/dashboard") Dashboard
 
 block content
   h1= title
+  form(action='/post', method='post')
+    div
+      label Title:
+      input#username(type='text', name='title')
+      br
+    div
+      label Message:
+      input#username(type='text', name='message')
+      br
+    div
+      input(type='submit', value='Post')
+  div.posts
+    ul.postul
+      each post in locals.posts
+        li.post
+          div
+            span.date= post.date
+            h1
+              | #{post.title}
+            - if(post.message)
+              p= post.message

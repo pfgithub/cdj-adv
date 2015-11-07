@@ -1,0 +1,19 @@
+.postul{
+  list-style: none;
+  padding:0;
+}
+.post{
+  background-color:#eee;
+  width:10%;
+  height:10%;
+  overflow-y: hidden;
+  float:left;
+}
+@media screen and (max-width: 1000px) {
+  .post{
+    width:100%;
+    float:none;
+  }
+}
+.post:nth-child(odd)		{ background-color:#eee; }
+.post:nth-child(even)		{ background-color:#fff; }

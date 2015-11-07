@@ -2,11 +2,11 @@ var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
 
 var userSchema = mongoose.Schema({
-    user             : {
-	username     :String,
-        password     : String,
-	name	     : String
-    }
+  user: {
+    username: String,
+    password: String,
+    name: String
+  }
 });
 
 userSchema.methods.generateHash = function(password) {

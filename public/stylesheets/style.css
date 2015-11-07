@@ -5,7 +5,6 @@ body {
 
 .navilink{
   color:#000;
-  transition:0.2s all;
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
@@ -73,4 +72,9 @@ a {
 .right{
   float:right;
   margin-right:20px;
+}
+.date{
+  color:#333;
+  font-style: italic;
+  font-size:10pt;
 }

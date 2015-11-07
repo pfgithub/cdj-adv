@@ -3,8 +3,6 @@
  */
 
 var express = require('express');
-var routes = require('./routes');
-var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var passport = require('passport');
@@ -12,6 +10,8 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose/');
 var session = require('express-session');
 var bcrypt = require('bcrypt');
+
+var latestPosts = [];
 
 var secretconfig = require('./secretconfig.json');
 
@@ -46,10 +46,10 @@ if ('development' == app.get('env')) {
 var Schema = mongoose.Schema;
 
 
-var UserDetail = new Schema({
-    username: String,
-    password: String
-}, {collection: 'userInfo'});
+//var UserDetail = new Schema({
+//    username: String,
+//    password: String
+//}, {collection: 'userInfo'});
 
 var userSchema = mongoose.Schema({
   username: {type: String, required:true, trim: true},
@@ -57,7 +57,32 @@ var userSchema = mongoose.Schema({
   name: String
 }, {collection: 'userInfo'});
 
+var postSchema = mongoose.Schema({
+  date: { type: Date, default: Date.now },
+  user: {type: String, required:true},
+  title: {type: String, required:true},
+  message: String
+}, {collection: 'posts'});
+
+postSchema.pre('save', function(next) {
+  getPosts();
+  next();
+});
+
 var UserDetails = mongoose.model('userInfo',userSchema);
+var Posts = mongoose.model('posts',postSchema);
+
+
+
+
+function getPosts(){
+  Posts.find({}).sort('-date').limit(100).exec(function(err, posts){
+    latestPosts = posts;
+    console.log(latestPosts);
+  });
+}
+
+getPosts();
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -91,7 +116,8 @@ passport.use(new LocalStrategy(
 app.get('/' , function(req, res, next){
   if(req.session.username){
     var uname = req.session.username;
-    res.render('index_loggedin', { title: secretconfig.title, uname: uname });
+    res.render('index_loggedin', { title: secretconfig.title, uname: uname, posts: latestPosts });
+    console.log(latestPosts);
   }else{
     res.render('index', { title: secretconfig.title});
   }
@@ -138,9 +164,36 @@ app.get('/signup', function(req,res){
 
 app.get('/dashboard', function(req,res){
   if(req.session.username){
-    
+    res.render('dashboard.jade', { title: secretconfig.title, uname: req.session.username });
   }else{
+    res.redirect("/login");
+  }
+});
 
+// IMPORTANT: rubixmc.no-ip.org:25567
+
+app.post('/post', function(req, res){
+  if(req.session.username){
+    if(req.body.title){
+      if(req.body.title.length > 2 && req.body.title.length < 50){
+        if(req.body.message){
+          if(req.body.message.length < 1000){
+            var testPost = new Posts({user:req.session.username,title:req.body.title, message: req.body.message});
+            testPost.save(function(err,data) {console.log("saved");});
+          }
+        }else{
+          var testPost = new Posts({user:req.session.username,title:req.body.title});
+          testPost.save(function(err,data) {console.log("saved");});
+        }
+        res.redirect("/");
+      }else{
+        res.redirect("/");
+      }
+    }else{
+      res.redirect("/");
+    }
+  }else{
+    res.redirect("/login");
   }
 });
 

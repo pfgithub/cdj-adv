@@ -6,12 +6,15 @@ html
     block head
   body
     script(src="jquery-2.1.4.min.js")
+    div#content
+      block content
+    
     ul#navbar
+      li.navi.navilink.left
+        a(href="/") Home
       - if (locals.uname)
         li.navi.left
           div Welcome, #{uname}
-        li.navi.navilink.left
-          a(href="/dashboard") Dashboard
         block navbar
         li.navi.navilink.right
           a(href="/logout") Log out
@@ -19,4 +22,7 @@ html
         li.navi.left
           div Welcome
         block navbar
-    block content
+        li.navi.navilink.right
+          a(href="/signup") Signup
+        li.navi.navilink.right
+          a(href="/login") Login
