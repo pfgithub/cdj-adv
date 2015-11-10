@@ -202,6 +202,7 @@ app.post('/signup', function(req,res){
   if(req.body.password != req.body.passConf){res.redirect("/signup#confirmPassword");return;}
   var usernameTest = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/;
   if(req.body.username.length > 12 || req.body.username.length < 3){res.redirect("/signup#usernameRules");return;}
+  if(req.body.password.length < 6){res.redirect("/signup#poasswordRules");return;}
   if(!usernameTest.test(req.body.username)){res.redirect("/signup#usernameRules");return;}
   UserDetails.findOne({'username':req.body.username},
     function(err, user) {
@@ -226,6 +227,30 @@ app.post('/signup', function(req,res){
       }
     }
   );
+});
+
+app.post("/comments/:id", function(req,res){
+  res.redirect("/");
+});
+
+app.get("/api/comments/:id", function(req,res){
+  res.send(
+    JSON.stringify({
+      id:req.params.id,
+      comments:[
+        {
+          user:"me",
+          time:Date.now(),
+          text: "Hi there",
+          subcomments:[]
+        }
+      ]
+    })
+  );
+});
+
+app.get("/comments/:id", function(req,res){
+  res.render("comments", {title: secretconfig.title, uname: req.session.username,id: req.params.id});
 });
 
 app.use(express.static(path.join(__dirname, 'public')));

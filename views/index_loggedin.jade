@@ -24,9 +24,15 @@ block content
     ul.postul
       each post in locals.posts
         li.post
-          div
-            span.date= post.date
+          div.postdiv
+            span
+              | by #{post.user}
             h1
               | #{post.title}
             - if(post.message)
               p= post.message
+            span.date= post.date
+          div.postlinks
+            a(href="comments/" + post.id) #{post.commentCount} comments
+            a(href="report/" + post.id) report
+          

@@ -1,0 +1,29 @@
+extends layout
+
+block head
+  link(rel='stylesheet', href='/stylesheets/posts.css')
+
+block content
+  h1= title
+  form(action='/comments/' + id, method='post')
+    div
+      label Comment:
+      input#username(type='text', name='text')
+      br
+    div
+      input(type='submit', value='Post')
+  ul#comments
+  script.
+    $.getJSON("/api/comments/#{id}",function(data){
+      console.log(data);
+      data.comments.forEach(function(comment){
+        $("#comments").prepend(
+          $("<li>").append(
+            $("<div>").text(comment.text)
+          ).append(
+            $("<div>").text("by " + comment.user + " on " + Date(comment.time))
+          )
+        );
+      });
+    });
+          
