@@ -5,6 +5,7 @@ html
     link(rel='stylesheet', href='/stylesheets/normalize.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     meta(name='viewport', content='width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    meta(name="theme-color" content="#00BFFF")
     block head
   body
     script(src="/jquery-2.1.4.min.js")
@@ -17,14 +18,14 @@ html
       - if (locals.uname)
         li.navi.left
           div Welcome, #{uname}
-        block navbar
         li.navi.navilink.right
           a(href="/logout") Log out
+        block navbar
       - else 
         li.navi.left
           div Welcome
-        block navbar
         li.navi.navilink.right
           a(href="/signup") Signup
         li.navi.navilink.right
           a(href="/login") Login
+        block navbar

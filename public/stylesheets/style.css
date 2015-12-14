@@ -78,3 +78,36 @@ a {
   font-style: italic;
   font-size:10pt;
 }
+
+
+
+.searchUsers{
+  border:none;
+  height:100%;
+  padding:0;
+  background-color:#fff;
+  background-color:rgba(255,255,255,0.5);
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+.searchUsers:hover, .searchUsers:focus{
+  background-color:#eee;
+  background-color:rgba(255,255,255,1);
+}
+.navibars{
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+
+  border-top:1px solid rgba(0,0,0,0.2);
+  border-bottom:1px solid rgba(0,0,0,0.2);
+  border-left:1px solid rgba(0,0,0,0);
+  border-right:1px solid rgba(0,0,0,0);
+}
+.navibars:hover, .navibars:focus{
+  background-color:#7EABBA;
+  background-color:rgba(0,192,255,0.2);
+}

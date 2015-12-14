@@ -6,33 +6,36 @@ block head
 block navbar
   li.navi.navilink.left
     a(href="/dashboard") Dashboard
+  li.navi.navibars.right
+    input.searchUsers(type='text',name='search')
 
 block content
   h1= title
   form(action='/post', method='post')
     div
       label Title:
-      input#username(type='text', name='title')
+      input#message(type='text', name='title', placeholder='Title', required)
       br
     div
       label Message:
-      input#username(type='text', name='message')
+      textarea#text(type='text', name='message', placeholder='Message')
       br
     div
       input(type='submit', value='Post')
   div.posts
     ul.postul
       each post in locals.posts
-        li.post
-          div.postdiv
-            span
-              | by #{post.user}
-            h1
-              | #{post.title}
-            - if(post.message)
-              p= post.message
-            span.date= post.date
+        li.postli
+          div.post
+            div.postdiv
+              span
+                | by #{post.user}
+              h1
+                | #{post.title}
+              - if(post.message)
+                p= post.message
+              span.date= post.date
           div.postlinks
-            a(href="comments/" + post.id) #{post.commentCount} comments
+            a(href="comments/" + post.id) #{post.commentCount} comments 
             a(href="report/" + post.id) report
           

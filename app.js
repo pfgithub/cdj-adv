@@ -54,7 +54,12 @@ var Schema = mongoose.Schema;
 var userSchema = mongoose.Schema({
   username: {type: String, required:true, trim: true},
   password: {type: String, required:true},
-  name: String
+  name: String,
+  details: {
+    lineOfCode: String,
+    programmingLanguage: String,
+    programmingProject: String
+  }
 }, {collection: 'userInfo'});
 
 var postSchema = mongoose.Schema({
@@ -78,7 +83,7 @@ var Posts = mongoose.model('posts',postSchema);
 function getPosts(){
   Posts.find({}).sort('-date').limit(100).exec(function(err, posts){
     latestPosts = posts;
-    console.log(latestPosts);
+    console.log("Posts updated");
   });
 }
 
@@ -117,7 +122,6 @@ app.get('/' , function(req, res, next){
   if(req.session.username){
     var uname = req.session.username;
     res.render('index_loggedin', { title: secretconfig.title, uname: uname, posts: latestPosts });
-    console.log(latestPosts);
   }else{
     res.render('index', { title: secretconfig.title});
   }
@@ -202,8 +206,9 @@ app.post('/signup', function(req,res){
   if(req.body.password != req.body.passConf){res.redirect("/signup#confirmPassword");return;}
   var usernameTest = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/;
   if(req.body.username.length > 12 || req.body.username.length < 3){res.redirect("/signup#usernameRules");return;}
-  if(req.body.password.length < 6){res.redirect("/signup#poasswordRules");return;}
+  if(req.body.password.length >= 6){res.redirect("/signup#passwordRules");return;}
   if(!usernameTest.test(req.body.username)){res.redirect("/signup#usernameRules");return;}
+  if(!usernameTest.test(req.body.password)){res.redirect("/signup#passwordRules");return;}
   UserDetails.findOne({'username':req.body.username},
     function(err, user) {
       if(err || !user){
